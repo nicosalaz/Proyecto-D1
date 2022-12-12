@@ -1,0 +1,20 @@
+<app-nav></app-nav>
+
+<app-tabla [datos] = "infoTabla"></app-tabla>
+<div class="container-admin" *ngIf="admin">
+    <div class="card">
+        <div class="card-header text-center">
+            <h2>Bienvenido Admin!</h2>
+        </div>
+        <div class="card-body text-center">
+            <h6>
+                En esta sección podrás agregar, eliminar, editar y vizualizar los datos de:
+                <ul>
+                    <li>Tiendas</li>
+                    <li>Inventario</li>
+                    <li>Productos</li>
+                </ul>
+            </h6>
+        </div>
+    </div>
+</div>

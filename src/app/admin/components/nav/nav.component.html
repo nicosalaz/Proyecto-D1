@@ -1,0 +1,16 @@
+<div class="nav-admin">
+   <div class="container-logo">
+        <img alt="Card" id="logo" src="assets/img/Tiendas_D1_logo.png">
+   </div>
+    <div class="container-buttons">
+        <div class="list-buttons">
+            <button type="button" class="btn btn-warning" (click)="reload()" routerLink="/admin/tiendas">Tiendas</button>
+            <button type="button" class="btn btn-warning" (click)="reload()" routerLink="/admin/inventario">Inventario</button>
+            <button type="button" class="btn btn-warning" (click)="reload()" routerLink="/admin/productos">Productos</button>
+            <button type="button" class="btn btn-danger" (click)="reload()" routerLink="/login">
+                <fa-icon [icon]="faSignOutAlt"></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<hr>

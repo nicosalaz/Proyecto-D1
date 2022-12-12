@@ -1,0 +1,8 @@
+<span  [ngSwitch]="tipo">
+    <div *ngSwitchCase="'input'">
+        <app-d-input [informacion]="informacion"></app-d-input>
+    </div>
+    <div *ngSwitchCase="'select'">
+        <app-d-dropdown [informacion]="informacion"></app-d-dropdown>
+    </div>
+</span>

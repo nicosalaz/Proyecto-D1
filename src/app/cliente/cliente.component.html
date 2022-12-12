@@ -1,0 +1,7 @@
+<div class="nav-cliente">
+    <app-nav [tipo]="pantalla"></app-nav>
+</div>
+<div class="principal-component">
+    <app-tiendas *ngIf="pantalla != 'productos'"></app-tiendas>
+    <app-productos [tienda] = "tienda" *ngIf="pantalla == 'productos'"></app-productos>
+</div>

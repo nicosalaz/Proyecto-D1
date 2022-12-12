@@ -1,0 +1,88 @@
+<p-toast></p-toast>
+<div class="buscador">
+    <div class="col-4">
+      <label for="loc_tienda" class="form-label">Filtro por localidad</label>
+        <input type="text" id="loc_tienda" class="form-control" [(ngModel)]="inpProd" (input)="findProd()">
+    </div>
+  </div>
+<div class="productos">
+    <div class="cuadricula">
+        <div class="card-prod" *ngFor="let prod of productos">
+            <div class="card text-center">
+                <div class="card-header">
+                    <img src="../../../../assets/img/prod.jpg" id="img-prod" alt="..">
+                </div>
+                <div class="card-body">
+                    <h6><strong>Producto:</strong> {{prod.nombre_producto}}</h6>
+                    <h6><strong>Cantidad:</strong> {{prod.cantidad_producto}}</h6>
+                    <h6><strong>Precio:</strong> ${{prod.precio | number }}</h6>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary" (click)="addCarrito(prod.id,prod.precio)">
+                        <fa-icon [icon]="faShoppingBag"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="carrito" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            <span><fa-icon [icon]="faShoppingCart"></fa-icon></span>
+            Carrito de compra
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center">Producto</th>
+                <th class="text-center">Cantidad</th>
+                <th class="text-center">Precio</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cart of carrito">
+                <td class="text-center">{{cart.nombre_producto}}</td>
+                <td class="text-center">
+                  <input type="text" class="form-control text-center" value="{{cart.cantidad}}" id="inpCantidad" [disabled]="disablesInput" >
+                </td>
+                <td class="text-center">${{cart.precio | number }}</td>
+                <td class="text-center">
+                  <div class="acciones">
+                    <button class="btn btn-warning" (click)="action(cart.id)">
+                      <fa-icon [icon]="faFile"></fa-icon>
+                    </button>
+                    <button class="btn btn-danger" (click)="DeleteItem(cart.id)">
+                      <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td class="text-center"><strong>Total: </strong>${{totalCarrito | number }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            <fa-icon [icon]="faBan"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-success" [disabled]="disabledCarrito" (click)="comprar()">
+            <fa-icon [icon]="fafaCheckCircleBan"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

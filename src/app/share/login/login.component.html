@@ -1,0 +1,31 @@
+<p-toast></p-toast>
+<div class="card">
+    <p-card header="" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+        <ng-template pTemplate="header">
+            <div class="logo">
+                <img alt="Card" id="logo" src="assets/img/Tiendas_D1_logo.png">
+            </div>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <form [formGroup]="FormLogin" (ngSubmit)="ingresar(FormLogin.value)">
+                <div class="col-12 md:col-4">
+                    <h5>Usuario</h5>
+                    <div class="p-inputgroup">
+                        <input type="text" formControlName="usuario" pInputText placeholder="Username">         
+                    </div>
+                </div>
+                <div class="col-12 md:col-4">
+                    <h5>Clave</h5>
+                    <div class="p-inputgroup">
+                        <input type="password" formControlName="clave" [feedback]="false" placeholder="Clave" pPassword />      
+                    </div>
+                </div>
+                <div class="col-12 md:col-4" id="btn-submit">
+                    <p-button class="btn-submit" label="Submit" type="submit"></p-button>
+                    <p-button label="¿No estas registrado? Registrate aquí" routerLink="register" styleClass="p-button-link"></p-button>
+                </div>
+            </form>
+            
+        </ng-template>
+    </p-card>
+</div>

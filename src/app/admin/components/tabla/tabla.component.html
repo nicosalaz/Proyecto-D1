@@ -1,0 +1,77 @@
+<p-toast></p-toast>
+<div class="drop-down" *ngIf="IsInventario">
+    <p-dropdown [options]="datosTienda" placeholder="Seleccione la localidad" 
+    optionValue="id" optionLabel="localidad" 
+    [showClear]="true" (onChange)="filtrarInv()" [(ngModel)]="selectedCity2"></p-dropdown>
+</div>
+<div class="table-data">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()" ></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="tabla" [columns]="getColumnas()" 
+    [tableStyle]="{'min-width': '50rem'}" [loading]="loading"
+    [paginator]="true"[rows]="5" [showCurrentPageReport]="true" 
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"  >
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let dato of datos.tabla">{{dato.nombre}}</th>
+                <th>
+                    acciones
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr >
+                <td *ngFor="let i of columns">{{rowData[i]}}</td>
+                <td>
+                    <button pButton pRipple type="button" (click)="openModalEdit(rowData)" icon="pi pi-bell" class="p-button-rounded p-button-warning"></button>
+                    <button pButton pRipple type="button" (click)="eliminar(rowData)" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>                
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form action="" [formGroup]="CreateObject" (submit)="saveProduct(CreateObject.value)" id="CreateObject">
+            <!--<app-d-switch *ngFor="let i of modal_info" [tipo]="i.tipo" [informacion]="i" ></app-d-switch>-->
+            <span *ngFor="let i of modal_info">
+                <span *ngIf="i.tipo == 'input'">
+                    <label for="" >{{i.label}}</label>
+                    <input formControlName="{{i.nombre_form}}" [type]="i.tipo_input" [placeholder]="i.label" pInputText/>
+                </span>
+                <span *ngIf="i.tipo == 'select'">
+                    <label for="">{{i.label}}</label>
+                    <p-dropdown appendTo="body" formControlName="{{i.nombre_form}}" [options]="i.informacion"  [optionLabel]="i.label" [optionValue]="i.value"></p-dropdown>                </span>
+            </span>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="productDialog=false"></button>
+        <button pButton pRipple label="Save" type="submit" icon="pi pi-check" form="CreateObject" class="p-button-text"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="productEditDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form action="" [formGroup]="EditObject" (submit)="edit(EditObject.value)" id="EditObject">
+            <!--<app-d-switch *ngFor="let i of modal_info" [tipo]="i.tipo" [informacion]="i" ></app-d-switch>-->
+            <span *ngFor="let i of modal_info">
+                <span *ngIf="i.tipo == 'input'">
+                    <label for="">{{i.label}}</label>
+                    <input formControlName="{{i.nombre_form}}" [(ngModel)]="varEdit[i.nombre_col]" value="{{i.valor_editar}}" [type]="i.tipo_input" [placeholder]="i.label" pInputText/>
+                </span>
+                <span *ngIf="i.tipo == 'select'">
+                    <label for="">{{i.label}}</label>
+                    <p-dropdown appendTo="body" formControlName="{{i.nombre_form}}" [options]="i.informacion"  [optionLabel]="i.label" [optionValue]="i.value"></p-dropdown>                </span>
+            </span>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="productEditDialog=false"></button>
+        <button pButton pRipple label="Editar" type="submit" icon="pi pi-check" form="EditObject" class="p-button-text"></button>
+    </ng-template>
+</p-dialog>

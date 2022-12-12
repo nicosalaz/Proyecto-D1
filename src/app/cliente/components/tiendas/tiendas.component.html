@@ -1,0 +1,19 @@
+<div class="buscador">
+  <div class="col-4">
+    <label for="loc_tienda" class="form-label">Filtro por localidad</label>
+      <input type="text" id="loc_tienda" class="form-control" [(ngModel)]="inpTienda" (input)="findTienda()">
+  </div>
+</div>
+<div class="tiendas" *ngIf="pantalla != 'productos'">
+    <div class="card" style="width: 15%; border-radius: 15px;"
+    *ngFor="let tienda of datosTiendas">
+      <div class="head-card">
+        <img src="../../../../assets/img/tienda_fisica.jpg" class="card-img-top" id="img-tienda" alt="...">
+      </div>
+        <div class="card-body">
+          <h5 class="card-title text-center">{{tienda.localidad}}</h5>
+          <p class="card-text text-center">{{tienda.direccion}}</p>
+          <button class="btn btn-primary" (click)="deplegarProductos(tienda.id)">Go</button>
+        </div>
+    </div>
+</div>
